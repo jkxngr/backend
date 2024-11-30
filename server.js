@@ -33,7 +33,9 @@ const initializeDatabase = async () => {
 };
 
 initializeDatabase();
-
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 const validateUserMiddleware = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).send("Unauthorized");
@@ -96,7 +98,7 @@ app.post("/register", async (req, res) => {
     res.status(500).send("Error during registration");
   }
 });
-app.post("/", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).send("Email and password are required");
