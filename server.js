@@ -3,11 +3,12 @@ const mysql = require("mysql2/promise");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
 const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5173", 
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
@@ -27,7 +28,7 @@ const initializeDatabase = async () => {
     console.log("Database connected");
   } catch (err) {
     console.error("Failed to connect to database:", err);
-    process.exit(1);
+    process.exit(1); 
   }
 };
 
@@ -186,4 +187,5 @@ app.post("/delete", validateUserMiddleware, async (req, res) => {
     res.status(500).send("Error deleting users");
   }
 });
-app.listen(3000, () => console.log("Server running on port 3000"));
+const port = process.env.PORT || 3000;  
+app.listen(port, () => console.log(`Server running on port ${port}`));
