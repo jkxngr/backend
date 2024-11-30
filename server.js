@@ -33,7 +33,9 @@ const initializeDatabase = async () => {
 };
 
 initializeDatabase();
-
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 const validateUserMiddleware = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).send("Unauthorized");
