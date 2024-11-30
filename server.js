@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
@@ -28,7 +28,7 @@ const initializeDatabase = async () => {
     console.log("Database connected");
   } catch (err) {
     console.error("Failed to connect to database:", err);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
@@ -114,12 +114,12 @@ app.post("/login", async (req, res) => {
         return res.status(403).send("Your account is blocked");
       }
       const currentLoginTime = new Date();
-      await db.query(
-        "UPDATE users SET last_login = ? WHERE id = ?",
-        [currentLoginTime, user.id]
-      );
+      await db.query("UPDATE users SET last_login = ? WHERE id = ?", [
+        currentLoginTime,
+        user.id,
+      ]);
 
-      const token = jwt.sign({ userId: user.id }, "your-secret-key", {
+      const token = jwt.sign({ userId: user.id }, "22f39c8400662f62ef2f6227e3526a44a1491686409f9b0d2ea64b4d551153d7", {
         expiresIn: "1h",
       });
       const { password: _, ...userData } = user;
@@ -189,5 +189,5 @@ app.post("/delete", validateUserMiddleware, async (req, res) => {
     res.status(500).send("Error deleting users");
   }
 });
-const port = process.env.PORT || 3000;  
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
