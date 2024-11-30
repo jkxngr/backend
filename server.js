@@ -41,7 +41,7 @@ const validateUserMiddleware = async (req, res, next) => {
   if (!token) return res.status(401).send("Unauthorized");
 
   try {
-    const decoded = jwt.verify(token, "your-secret-key");
+    const decoded = jwt.verify(token, "22f39c8400662f62ef2f6227e3526a44a1491686409f9b0d2ea64b4d551153d7");
 
     const [rows] = await db.query(
       "SELECT * FROM users WHERE id = ? AND status = 'active'",
@@ -64,7 +64,7 @@ app.get("/auth/validate", async (req, res) => {
     return res.status(401).send("Unauthorized");
   }
   try {
-    const decoded = jwt.verify(token, "your-secret-key");
+    const decoded = jwt.verify(token, "22f39c8400662f62ef2f6227e3526a44a1491686409f9b0d2ea64b4d551153d7");
     const [rows] = await db.query(
       "SELECT * FROM users WHERE id = ? AND status = 'active'",
       [decoded.userId]
