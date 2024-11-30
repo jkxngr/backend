@@ -110,8 +110,6 @@ app.post("/login", async (req, res) => {
       if (user.status === "blocked") {
         return res.status(403).send("Your account is blocked");
       }
-
-      // Update the last_login field to the current time
       const currentLoginTime = new Date();
       await db.query(
         "UPDATE users SET last_login = ? WHERE id = ?",
